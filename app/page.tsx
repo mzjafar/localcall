@@ -3,17 +3,16 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// ✅ Fix: force string value even if env is undefined
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
+// ✅ Ensure both variables are always strings
+const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL as string) || '';
+const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string) || '';
 
-// ✅ Add runtime warning
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('⚠️ Missing Supabase environment variables. Please set in Vercel.');
+  console.warn('⚠️ Missing Supabase environment variables.');
 }
 
-// ✅ Type-safe client creation
-const supabase = createClient(String(supabaseUrl), String(supabaseAnonKey));
+// ✅ Explicit type cast to string
+const supabase = createClient(supabaseUrl as string, supabaseAnonKey as string);
 
 export default function Home() {
   const [message, setMessage] = useState('Connecting to Supabase...');
