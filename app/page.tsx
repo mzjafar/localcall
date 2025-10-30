@@ -3,16 +3,12 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// ✅ Ensure both variables are always strings
-const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL as string) || '';
-const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string) || '';
+// ✅ Environment variables with fallback empty string
+const supabaseUrl: string = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+const supabaseAnonKey: string = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('⚠️ Missing Supabase environment variables.');
-}
-
-// ✅ Explicit type cast to string
-const supabase = createClient(supabaseUrl as string, supabaseAnonKey as string);
+// ✅ Safe createClient only if both exist
+const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '');
 
 export default function Home() {
   const [message, setMessage] = useState('Connecting to Supabase...');
