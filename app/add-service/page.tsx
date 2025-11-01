@@ -1,6 +1,6 @@
 'use client';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
