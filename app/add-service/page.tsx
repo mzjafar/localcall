@@ -96,7 +96,8 @@ export default function AddService() {
         </form>
         {status && <p className="mt-4 text-sm text-slate-700">{status}</p>}
       </div>
-      <Header />
+      <Header route="add-service" setRoute={() => {}} />
+
  <Footer />
     </main>
   );
